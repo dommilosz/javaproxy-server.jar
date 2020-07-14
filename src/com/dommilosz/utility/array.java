@@ -1,7 +1,7 @@
 package com.dommilosz.utility;
 
 public class array {
-	public static String[] addStr(String[] arr, String x) {
+	public static String[] add(String[] arr, String x) {
 		int i;
 		int n = arr.length;
 		// create a new array of size n+1
@@ -19,7 +19,7 @@ public class array {
 		return newarr;
 	}
 
-	public static Thread[] addThread(Thread[] arr, Thread x) {
+	public static Thread[] add(Thread[] arr, Thread x) {
 		int i;
 		int n = arr.length;
 		// create a new array of size n+1
@@ -37,7 +37,7 @@ public class array {
 		return newarr;
 	}
 
-	public static int[] addInt(int[] arr, int x) {
+	public static int[] add(int[] arr, int x) {
 		int i;
 		int n = arr.length;
 		// create a new array of size n+1
@@ -55,7 +55,7 @@ public class array {
 		return newarr;
 	}
 
-	public static String[] remStr(String[] arr, int index) {
+	public static String[] rem(String[] arr, int index) {
 		if (arr == null
 				|| index < 0
 				|| index >= arr.length) {
@@ -87,7 +87,7 @@ public class array {
 		return -1;
 	}
 
-	public static byte[] addByte(byte[] arr, byte x) {
+	public static byte[] add(byte[] arr, byte x) {
 		int i;
 		int n = arr.length;
 		// create a new array of size n+1
@@ -105,7 +105,7 @@ public class array {
 		return newarr;
 	}
 
-	public static char[] addChar(char[] arr, char x) {
+	public static char[] add(char[] arr, char x) {
 		int i;
 		int n = arr.length;
 		// create a new array of size n+1

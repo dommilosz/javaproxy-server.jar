@@ -13,7 +13,7 @@ public class commandhandler {
 		Executed = false;
 		String[] args = cmd.split(" ");
 		while (args.length < 8) {
-			args = array.addStr(args, "");
+			args = array.add(args, "");
 		}
 		remotecommand.execute(args);
 		if (Executed) return true;

@@ -1,14 +1,10 @@
 package com.dommilosz.internalcommands;
 
 import com.dommilosz.main.commandhandler;
-import com.dommilosz.main.javarun;
 import com.dommilosz.utility.array;
 import com.dommilosz.utility.logger;
 
 
-import java.util.Set;
-
-import static com.dommilosz.utility.array.*;
 import static com.dommilosz.utility.logger.log.WriteLine;
 import static com.dommilosz.utility.logger.log.log_level;
 
@@ -103,7 +99,7 @@ public class variablecommand {
 		String var = findVar(varname);
 
 		if (var.equals(errs)) {
-			vars = array.addStr(vars, varname + eqls + value);
+			vars = array.add(vars, varname + eqls + value);
 		} else {
 			int i = array.ArrindexOf(vars, var);
 			vars[i] = varname + eqls + value;
