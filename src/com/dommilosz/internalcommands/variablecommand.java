@@ -1,7 +1,7 @@
 package com.dommilosz.internalcommands;
 
 import com.dommilosz.main.commandhandler;
-import com.dommilosz.utility.array;
+import com.dommilosz.utility.arrayutil;
 import com.dommilosz.utility.logger;
 
 
@@ -99,9 +99,9 @@ public class variablecommand {
 		String var = findVar(varname);
 
 		if (var.equals(errs)) {
-			vars = array.add(vars, varname + eqls + value);
+			vars = arrayutil.add(vars, varname + eqls + value);
 		} else {
-			int i = array.ArrindexOf(vars, var);
+			int i = arrayutil.ArrindexOf(vars, var);
 			vars[i] = varname + eqls + value;
 		}
 		var = findVar(varname);

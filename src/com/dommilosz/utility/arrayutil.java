@@ -1,6 +1,6 @@
 package com.dommilosz.utility;
 
-public class array {
+public class arrayutil {
 	public static String[] add(String[] arr, String x) {
 		int i;
 		int n = arr.length;

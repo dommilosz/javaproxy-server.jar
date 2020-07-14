@@ -1,7 +1,7 @@
 package com.dommilosz.main;
 
 import com.dommilosz.internalcommands.*;
-import com.dommilosz.utility.array;
+import com.dommilosz.utility.arrayutil;
 
 import static com.dommilosz.main.runner.runScript;
 import static com.dommilosz.utility.logger.log.WriteLine;
@@ -13,7 +13,7 @@ public class commandhandler {
 		Executed = false;
 		String[] args = cmd.split(" ");
 		while (args.length < 8) {
-			args = array.add(args, "");
+			args = arrayutil.add(args, "");
 		}
 		remotecommand.execute(args);
 		if (Executed) return true;

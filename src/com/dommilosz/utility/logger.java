@@ -18,7 +18,7 @@ public class logger {
 		public static String errorstr = "??xGVWnU028M??";
 
 		public static void Info(String txt, boolean br) {
-			log = array.add(log, txt);
+			log = arrayutil.add(log, txt);
 			if (br) {
 				System.out.println(txt);
 			} else {
@@ -28,7 +28,7 @@ public class logger {
 		}
 
 		public static void Error(String txt, boolean br) {
-			log = array.add(log, txt);
+			log = arrayutil.add(log, txt);
 			if (br) {
 				System.err.println(txt);
 			} else {

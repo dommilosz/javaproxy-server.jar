@@ -1,6 +1,6 @@
 package com.dommilosz.main;
 
-import com.dommilosz.utility.array;
+import com.dommilosz.utility.arrayutil;
 import com.dommilosz.utility.ioreader;
 
 import java.io.*;
@@ -138,8 +138,8 @@ public class tcphandler {
 						});
 						keeper.start();
 						reader.start();
-						threads = array.add(threads, keeper);
-						threads = array.add(threads, reader);
+						threads = arrayutil.add(threads, keeper);
+						threads = arrayutil.add(threads, reader);
 						WriteLine("[SERVER] >> New client connected");
 					} catch (Exception ex) {
 					}
@@ -218,8 +218,8 @@ public class tcphandler {
 				});
 				keeper.start();
 				reader.start();
-				threads = array.add(threads, keeper);
-				threads = array.add(threads, reader);
+				threads = arrayutil.add(threads, keeper);
+				threads = arrayutil.add(threads, reader);
 				System.out.println("New client connected");
 
 
