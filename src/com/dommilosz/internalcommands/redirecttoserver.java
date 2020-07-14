@@ -17,11 +17,7 @@ public class redirecttoserver {
 				commandhandler.Executed = true;
 				try {
 					tcphandler.tcpclient.writeServer(String.join(" ", args), pktype.cmd);
-				} catch (IOException e) {
-					e.printStackTrace();
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
+				} catch (Exception ex) {}
 			}
 		} catch (Exception ex) {
 		}

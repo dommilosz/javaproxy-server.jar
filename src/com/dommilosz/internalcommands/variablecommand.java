@@ -22,17 +22,17 @@ public class variablecommand {
 		if (!args[0].equals(name)) return;
 		commandhandler.Executed = true;
 
-		if (args[1] == "") {
+		if (args[1].equals("")) {
 			WriteLine("Usage | var set <varname> <value> | var del <varname> | var get <varname> | var all");
 			return;
 		}
 		switch (args[1]) {
 			case "set": {
-				if (args[3] == "") {
+				if (args[3].equals("")) {
 					WriteLine("Usage | var <varname> | var set <varname> <value> | var del <varname>");
 					return;
 				}
-				if (args[2] == "") {
+				if (args[2].equals("")) {
 					WriteLine("Usage | var <varname> | var set <varname> <value> | var del <varname>");
 					return;
 				}

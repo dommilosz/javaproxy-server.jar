@@ -119,33 +119,27 @@ public class tcphandler {
 
 					try {
 						socket = serverSocket.accept();
-						Thread reader = new Thread(new Runnable() {
-							@Override
-							public void run() {
-								try {
-									readClient();
-								} catch (Exception ex) {
-									socketStop();
-								}
+						Thread reader = new Thread(() -> {
+							try {
+								readClient();
+							} catch (Exception ex) {
+								socketStop();
 							}
 						});
-						Thread keeper = new Thread(new Runnable() {
-							@Override
-							public void run() {
-								try {
-									while (true) {
-										writeClient("$", pktype.ka);
-										Thread.sleep(1000);
-									}
-								} catch (Exception ex) {
-
+						Thread keeper = new Thread(() -> {
+							try {
+								while (true) {
+									writeClient("$", pktype.ka);
+									Thread.sleep(1000);
 								}
+							} catch (Exception ex) {
+
 							}
 						});
 						keeper.start();
 						reader.start();
-						array.addThread(threads, keeper);
-						array.addThread(threads, reader);
+						threads = array.addThread(threads, keeper);
+						threads = array.addThread(threads, reader);
 						WriteLine("[SERVER] >> New client connected");
 					} catch (Exception ex) {
 					}
@@ -158,12 +152,7 @@ public class tcphandler {
 		}
 
 		public static void start(int port) {
-			Thread t = new Thread(new Runnable() {
-				@Override
-				public void run() {
-					startSync(port);
-				}
-			});
+			Thread t = new Thread(() -> startSync(port));
 			t.start();
 		}
 
@@ -210,35 +199,27 @@ public class tcphandler {
 				tcpStop();
 				socketport = port;
 				socket = new Socket(hostname, port);
-				Thread reader = new Thread(new Runnable() {
-					@Override
-					public void run() {
-						try {
-							readServer();
-						} catch (Exception ex) {
-							tcpStop();
-						}
+				Thread reader = new Thread(() -> {
+					try {
+						readServer();
+					} catch (Exception ex) {
+						tcpStop();
 					}
 				});
-				Thread keeper = new Thread(new Runnable() {
-					@Override
-					public void run() {
-						try {
-							while (true) {
-								writeServer("$", pktype.ka);
-								Thread.sleep(1000);
-							}
-						} catch (IOException e) {
-							e.printStackTrace();
-						} catch (InterruptedException e) {
-							e.printStackTrace();
+				Thread keeper = new Thread(() -> {
+					try {
+						while (true) {
+							writeServer("$", pktype.ka);
+							Thread.sleep(1000);
 						}
+					} catch (Exception e) {
+						e.printStackTrace();
 					}
 				});
 				keeper.start();
 				reader.start();
-				array.addThread(threads, keeper);
-				array.addThread(threads, reader);
+				threads = array.addThread(threads, keeper);
+				threads = array.addThread(threads, reader);
 				System.out.println("New client connected");
 
 
@@ -253,12 +234,7 @@ public class tcphandler {
 		}
 
 		public static void start(String hostname, int port) {
-			Thread t = new Thread(new Runnable() {
-				@Override
-				public void run() {
-					startSync(hostname, port);
-				}
-			});
+			Thread t = new Thread(() -> startSync(hostname, port));
 			t.start();
 		}
 

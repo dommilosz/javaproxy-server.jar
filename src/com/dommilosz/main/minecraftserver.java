@@ -40,7 +40,7 @@ public class minecraftserver implements Runnable {
 	}
 
 	public static void startThread() {
-		Runnable mssvtr = () -> minecraftserver.main();
+		Runnable mssvtr = minecraftserver::main;
 		mcsvt = new Thread(mssvtr);
 		mcsvt.start();
 	}

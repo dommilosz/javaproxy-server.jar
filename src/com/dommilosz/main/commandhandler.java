@@ -16,9 +16,9 @@ public class commandhandler {
 			args = array.addStr(args, "");
 		}
 		remotecommand.execute(args);
-		if (Executed) return Executed;
+		if (Executed) return true;
 		redirecttoserver.execute(args);
-		if (Executed) return Executed;
+		if (Executed) return true;
 
 		stopcommand.execute(args);
 		servercommand.execute(args);

@@ -13,11 +13,13 @@ public class ioreader {
 		try {
 			int ch = s.read();
 			cmd += (char) ch;
+			StringBuilder cmdBuilder = new StringBuilder(cmd);
 			while (ch != 10 && ch >= 0) {
 				ch = s.read();
 				if (ch == 10 || ch < 0) break;
-				cmd += (char) ch;
+				cmdBuilder.append((char) ch);
 			}
+			cmd = cmdBuilder.toString();
 		} catch (Exception ex) {
 			throw new Exception("Input was empty!");
 		}

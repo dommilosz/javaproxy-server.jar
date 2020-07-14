@@ -25,12 +25,7 @@ public class runner {
 	}
 
 	public static void stopTerminal() {
-		Thread stopthread = new Thread(new Runnable() {
-			@Override
-			public void run() {
-				runScript("exit");
-			}
-		});
+		Thread stopthread = new Thread(() -> runScript("exit"));
 		stopthread.start();
 	}
 
@@ -52,13 +47,13 @@ public class runner {
 
 	public static class command {
 		public static void runScript(String cmd, boolean isWindows) throws IOException {
-			String command = "";
-			String arg1 = "";
+			String command;
+			String arg1;
 			if (isWindows) {
-				command = (String.format("cmd.exe"));
+				command = ("cmd.exe");
 				arg1 = "/c";
 			} else {
-				command = (String.format("sh"));
+				command = ("sh");
 				arg1 = "-c";
 			}
 			ProcessBuilder pb = new ProcessBuilder()
@@ -89,11 +84,11 @@ public class runner {
 		public static boolean WriteToConsole = true;
 
 		public static void runTerminalSync(boolean isWindows) throws IOException, InterruptedException {
-			String command = "";
+			String command;
 			if (isWindows) {
-				command = (String.format("cmd.exe"));
+				command = ("cmd.exe");
 			} else {
-				command = (String.format("sh"));
+				command = ("sh");
 			}
 			ProcessBuilder pb = new ProcessBuilder()
 					.command(command)
@@ -120,27 +115,24 @@ public class runner {
 
 			final InputStream inStream = cmd.getInputStream();
 			final InputStream errStream = cmd.getErrorStream();
-			new Thread(new Runnable() {
-				public void run() {
-					while (true) {
-						InputStreamReader reader = null;
-						reader = new InputStreamReader(inStream, StandardCharsets.UTF_8);
-						Scanner scan = new Scanner(inStream);
-						while (scan.hasNextLine()) {
-							try {
-								Thread.sleep(20);
-							} catch (InterruptedException e) {
-								e.printStackTrace();
-							}
-							log_Prefix = "";
-							try {
-								WriteLine(ioreader.readLine(inStream));
-							} catch (Exception e) {
-
-							}
-
-							log_Prefix = "#";
+			new Thread(() -> {
+				while (true) {
+					InputStreamReader reader = null;
+					Scanner scan = new Scanner(inStream);
+					while (scan.hasNextLine()) {
+						try {
+							Thread.sleep(20);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
 						}
+						log_Prefix = "";
+						try {
+							WriteLine(ioreader.readLine(inStream));
+						} catch (Exception e) {
+
+						}
+
+						log_Prefix = "#";
 					}
 				}
 			}).start();
