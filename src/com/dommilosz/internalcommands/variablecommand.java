@@ -16,7 +16,7 @@ public class variablecommand {
 	public static String eqls = "=#??QAATUYGbgt#=";
 	public static String errs = "=#??o0AmU3GFPo#=";
 	public static String name = "var";
-	public static String vars[] = new String[]{"appname" + eqls + logger.log.appname};
+	public static String[] vars = new String[]{"appname" + eqls + logger.log.appname};
 
 	public static void execute(String... args) {
 		if (!args[0].equals(name)) return;
@@ -55,14 +55,14 @@ public class variablecommand {
 			case "all": {
 				WriteLine("Vars display");
 				for (String var : vars) {
-					String vara[] = SplitVar(var);
+					String[] vara = SplitVar(var);
 					WriteLine("\"%s\" == \"%s\"", vara[0], vara[1]);
 				}
 				break;
 			}
 			case "get": {
 				String var = findVar(args[2]);
-				String vara[] = SplitVar(var);
+				String[] vara = SplitVar(var);
 				if (var.equals(errs)) {
 					WriteLine("\"%s\" == \"%s\"", args[2], "null");
 				} else {
@@ -87,7 +87,7 @@ public class variablecommand {
 	public static String[] SplitVar(String var) {
 		int i = var.indexOf(eqls);
 		if (i < 0) return new String[]{"null", "null"};
-		String donevara[] = new String[]{var.substring(0, i), var.substring(i + eqls.length())};
+		String[] donevara = new String[]{var.substring(0, i), var.substring(i + eqls.length())};
 
 		donevara[0] = donevara[0].trim();
 		donevara[1] = donevara[1].trim();
@@ -109,7 +109,7 @@ public class variablecommand {
 			vars[i] = varname + eqls + value;
 		}
 		var = findVar(varname);
-		String vara[] = SplitVar(var);
+		String[] vara = SplitVar(var);
 		WriteLine("\"%s\" == \"%s\"", vara[0], vara[1]);
 	}
 }

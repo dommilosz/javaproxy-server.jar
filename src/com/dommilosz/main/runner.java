@@ -3,6 +3,7 @@ package com.dommilosz.main;
 import com.dommilosz.utility.ioreader;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 
 import static com.dommilosz.utility.env.*;
@@ -13,7 +14,7 @@ public class runner {
 
 	public static String getInput() throws Exception {
 		Scanner s = new Scanner(System.in);
-		String cmd = ioreader.readLine(s,"stdinput");
+		String cmd = ioreader.readLine(System.in);
 		return cmd;
 	}
 
@@ -67,11 +68,10 @@ public class runner {
 
 			// enter code here
 			log_Prefix = "";
-			try
-			 {
+			try {
 				String line;
-				 Scanner s = new Scanner(process.getInputStream());
-				while ((line = ioreader.readLine(s,"runscript")) != null) {
+				Scanner sc = new Scanner(process.getInputStream());
+				while ((line = ioreader.readLine(process.getInputStream())) != null) {
 					Thread.sleep(20);
 					WriteLine(line);
 				}
@@ -124,12 +124,8 @@ public class runner {
 				public void run() {
 					while (true) {
 						InputStreamReader reader = null;
-						try {
-							reader = new InputStreamReader(inStream, "UTF-8");
-						} catch (UnsupportedEncodingException e) {
-							e.printStackTrace();
-						}
-						Scanner scan = new Scanner(reader);
+						reader = new InputStreamReader(inStream, StandardCharsets.UTF_8);
+						Scanner scan = new Scanner(inStream);
 						while (scan.hasNextLine()) {
 							try {
 								Thread.sleep(20);
@@ -138,7 +134,7 @@ public class runner {
 							}
 							log_Prefix = "";
 							try {
-								WriteLine(ioreader.readLine(scan,"Reader"));
+								WriteLine(ioreader.readLine(inStream));
 							} catch (Exception e) {
 
 							}

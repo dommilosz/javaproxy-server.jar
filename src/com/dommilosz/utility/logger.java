@@ -14,7 +14,7 @@ public class logger {
 		public static String log_time = "#";
 		public static String appname = "JDC";
 		public static String prefix = "[" + appname + "]";
-		public static String log[] = new String[]{""};
+		public static String[] log = new String[]{""};
 		public static String errorstr = "??xGVWnU028M??";
 
 		public static void Info(String txt, boolean br) {

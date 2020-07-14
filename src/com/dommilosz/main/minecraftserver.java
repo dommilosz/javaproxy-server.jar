@@ -15,7 +15,7 @@ public class minecraftserver implements Runnable {
 	public static int PORT = 25565;
 	public static Thread mcsvt;
 	// Client Connection via Socket Class
-	private Socket connect;
+	private final Socket connect;
 
 	public minecraftserver(Socket c) {
 		connect = c;

@@ -25,27 +25,18 @@ public class tcphandler {
 	}
 
 	public static boolean socketOpen() {
-		if (socket != null && !socket.isClosed()) {
-			return true;
-		}
-		return false;
+		return socket != null && !socket.isClosed();
 	}
 
 	public static boolean serverOpen() {
-		if (serverSocket != null && !serverSocket.isClosed()) {
-			return true;
-		}
-		return false;
+		return serverSocket != null && !serverSocket.isClosed();
 	}
 
 	public static boolean anyOpen() {
 		if (serverSocket != null && !serverSocket.isClosed()) {
 			return true;
 		}
-		if (socket != null && !socket.isClosed()) {
-			return true;
-		}
-		return false;
+		return socket != null && !socket.isClosed();
 	}
 
 	public static void tcpStop() {
@@ -59,40 +50,30 @@ public class tcphandler {
 		}
 		socket = null;
 		serverSocket = null;
-		try {
-			for (Thread t : threads) {
-				try {
-					t.stop();
-				} catch (Exception ex) {
-				}
-			}
-		} catch (Exception ex) {
-		}
-		threads = new Thread[0];
+		killThreads();
 	}
-	public static void serverStop() {
-		try {
-			serverSocket.close();
-		} catch (Exception ex) {
-		}
-		serverSocket = null;
-		try {
-			for (Thread t : threads) {
-				try {
-					t.stop();
-				} catch (Exception ex) {
-				}
-			}
-		} catch (Exception ex) {
-		}
-		threads = new Thread[0];
-	}
+
 	public static void socketStop() {
 		try {
 			socket.close();
 		} catch (Exception ex) {
 		}
 		socket = null;
+		killThreads();
+	}
+
+	public static void killThreads() {
+		try {
+			for (Thread t : threads) {
+				try {
+					t.stop();
+				} catch (Exception ex) {
+				}
+			}
+		} catch (Exception ex) {
+		}
+		threads = new Thread[0];
+
 	}
 
 	public static String sockettype() {
@@ -196,10 +177,10 @@ public class tcphandler {
 		public static void readClient() throws Exception {
 			if (!canIO() || !typeServer()) return;
 			InputStream inputraw = socket.getInputStream();
-			Scanner s = new Scanner(inputraw);
+			Scanner sc = new Scanner(inputraw);
 			while (socket.isConnected()) {
 
-				String cmd = ioreader.readLine(s, "readClient",5000);
+				String cmd = ioreader.readLine(inputraw);
 				String packettype = "RAW";
 				if (cmd.contains(pktype.any)) {
 					String[] args = cmd.split("#");
@@ -291,10 +272,10 @@ public class tcphandler {
 		public static void readServer() throws Exception {
 			if (!canIO() || typeServer()) return;
 			InputStream inputraw = socket.getInputStream();
-			Scanner s = new Scanner(inputraw);
+			Scanner sc = new Scanner(inputraw);
 			while (socket.isConnected()) {
 
-				String cmd = ioreader.readLine(s, "readServer",5000);
+				String cmd = ioreader.readLine(inputraw);
 				String packettype = "RAW";
 				if (cmd.contains(pktype.any)) {
 					String[] args = cmd.split("#");

@@ -18,6 +18,7 @@ public class array {
 
 		return newarr;
 	}
+
 	public static Thread[] addThread(Thread[] arr, Thread x) {
 		int i;
 		int n = arr.length;
@@ -84,5 +85,41 @@ public class array {
 			if (arr[i].equals(el)) return i;
 		}
 		return -1;
+	}
+
+	public static byte[] addByte(byte[] arr, byte x) {
+		int i;
+		int n = arr.length;
+		// create a new array of size n+1
+		byte[] newarr = new byte[n + 1];
+
+		// insert the elements from
+		// the old array byteo the new array
+		// insert all elements till n
+		// then insert x at n+1
+		for (i = 0; i < n; i++)
+			newarr[i] = arr[i];
+
+		newarr[n] = x;
+
+		return newarr;
+	}
+
+	public static char[] addChar(char[] arr, char x) {
+		int i;
+		int n = arr.length;
+		// create a new array of size n+1
+		char[] newarr = new char[n + 1];
+
+		// insert the elements from
+		// the old array charo the new array
+		// insert all elements till n
+		// then insert x at n+1
+		for (i = 0; i < n; i++)
+			newarr[i] = arr[i];
+
+		newarr[n] = x;
+
+		return newarr;
 	}
 }
