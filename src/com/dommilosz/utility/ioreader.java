@@ -16,9 +16,11 @@ public class ioreader {
 			StringBuilder cmdBuilder = new StringBuilder(cmd);
 			while (ch != 10 && ch >= 0) {
 				ch = s.read();
+				if(ch<0)throw new Exception();
 				if (ch == 10 || ch < 0) break;
 				cmdBuilder.append((char) ch);
 			}
+			if(ch<0)throw new Exception();
 			cmd = cmdBuilder.toString();
 		} catch (Exception ex) {
 			throw new Exception("Input was empty!");

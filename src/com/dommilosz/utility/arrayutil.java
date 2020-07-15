@@ -55,38 +55,6 @@ public class arrayutil {
 		return newarr;
 	}
 
-	public static String[] rem(String[] arr, int index) {
-		if (arr == null
-				|| index < 0
-				|| index >= arr.length) {
-
-			return arr;
-		}
-		String[] anotherArray = new String[arr.length - 1];
-		for (int i = 0, k = 0; i < arr.length; i++) {
-
-			// if the index is
-			// the removal element index
-			if (i == index) {
-				continue;
-			}
-
-			// if the index is not
-			// the removal element index
-			anotherArray[k++] = arr[i];
-		}
-
-		// return the resultant array
-		return anotherArray;
-	}
-
-	public static int ArrindexOf(String[] arr, String el) {
-		for (int i = 0; i < arr.length; i++) {
-			if (arr[i].equals(el)) return i;
-		}
-		return -1;
-	}
-
 	public static byte[] add(byte[] arr, byte x) {
 		int i;
 		int n = arr.length;
@@ -122,4 +90,38 @@ public class arrayutil {
 
 		return newarr;
 	}
+
+	public static String[] rem(String[] arr, int index) {
+		if (arr == null
+				|| index < 0
+				|| index >= arr.length) {
+
+			return arr;
+		}
+		String[] anotherArray = new String[arr.length - 1];
+		for (int i = 0, k = 0; i < arr.length; i++) {
+
+			// if the index is
+			// the removal element index
+			if (i == index) {
+				continue;
+			}
+
+			// if the index is not
+			// the removal element index
+			anotherArray[k++] = arr[i];
+		}
+
+		// return the resultant array
+		return anotherArray;
+	}
+
+	public static int ArrindexOf(String[] arr, String el) {
+		for (int i = 0; i < arr.length; i++) {
+			if (arr[i].equals(el)) return i;
+		}
+		return -1;
+	}
+
+
 }
