@@ -16,7 +16,7 @@ public class javarun {
 
 	public static void main(String[] args) throws IOException, InterruptedException {
 		argscommand.cmdargs = args;
-
+		configmanager.loadFromFile();
 		WriteLine("Starting " + appname, 1);
 		WriteLine("");
 		WriteLine("Running on:", 1);
@@ -30,7 +30,7 @@ public class javarun {
 		if (isWindows()) system = "WINDOWS";
 		String startscript = "start.sh ";
 		if (isWindows()) startscript = "start.bat";
-
+		runner.mode = configmanager.getValue("console.mode");
 		runTerminal();
 		File startscriptfile = new File(startscript);
 		boolean exists = startscriptfile.exists();
@@ -43,28 +43,18 @@ public class javarun {
 		} else {
 			WriteLine("[" + startscript + "] not found!");
 		}
-		File svprop = new File("./server.properties");
-		exists = svprop.exists();
-		int port = 25565;
-		if (exists) {
-			WriteLine("[%s] found!", svprop);
-			WriteLine("Loading  [%s]", svprop);
-			WriteLine("Getting port from [%s]", svprop);
-			Scanner myReader = new Scanner(svprop);
-			while (myReader.hasNextLine()) {
-				String data = myReader.nextLine();
-				if (data.contains("server-port")) {
-					port = Integer.parseInt(data.split("=")[1]);
-				}
+		int port = Integer.parseInt(configmanager.getValue("minecraft.server.port"));
+		if(configmanager.getValue("minecraft.server.enabled").equals("true")){
+			if(configmanager.getValue("minecraft.server.mode").equals("simple")){
+				minecraftserver.PORT = port;
+				WriteLine("Running listener on port %s", port);
+				minecraftserver.startThread();
 			}
-			WriteLine("Port is [%s]", port);
-		} else {
-			WriteLine("[" + svprop + "] not found!");
-			WriteLine("Port is [%s]", port);
 		}
-		minecraftserver.PORT = port;
-		WriteLine("Running listener on port %s", port);
-		minecraftserver.startThread();
+		if(configmanager.getValue("remote.autorun.enabled").equals("true")){
+			int remport = Integer.parseInt(configmanager.getValue("remote.autorun.port"));
+			tcphandler.tcpserver.start(remport);
+		}
 
 		WriteLine("==================================");
 		WriteLine("| WELCOME TO dommilosz's console |");

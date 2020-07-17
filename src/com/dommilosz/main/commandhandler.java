@@ -24,6 +24,7 @@ public class commandhandler {
 		servercommand.execute(args);
 		argscommand.execute(args);
 		variablecommand.execute(args);
+		configcommand.execute(args);
 
 		return Executed;
 	}
