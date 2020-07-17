@@ -18,6 +18,7 @@ public class ioreader {
 				ch = s.read();
 				if(ch<0)throw new Exception();
 				if (ch == 10 || ch < 0) break;
+				if(ch!=13)
 				cmdBuilder.append((char) ch);
 			}
 			if(ch<0)throw new Exception();

@@ -19,9 +19,9 @@ public class remotecommand {
 			return;
 		}
 		if (args[1].equals("status")) {
-			WriteLine("Socket Type: " + tcphandler.sockettype());
-			if (tcphandler.anyOpen()) {
-				WriteLine("Socket Port: " + tcphandler.socketport);
+			WriteLine("Socket Type: " + tcphandler.tcpType());
+			if (!tcphandler.tcpType().equals("none")) {
+				WriteLine("Socket Port: " + tcphandler.socketPort());
 			} else {
 				WriteLine("Socket Port: " + "closed");
 			}
@@ -29,7 +29,7 @@ public class remotecommand {
 			return;
 		}
 		if (args[1].equals("stop")) {
-			WriteLine("Stopping Socket Type: " + tcphandler.sockettype());
+			WriteLine("Stopping Socket Type: " + tcphandler.tcpType());
 			tcphandler.tcpStop();
 			WriteLine("Stopped Socket");
 			return;
@@ -39,14 +39,14 @@ public class remotecommand {
 			return;
 		}
 		if (args[1].equals("start")) {
-			tcphandler.tcpserver.start(Integer.parseInt(args[2]));
+			tcphandler.startServer(Integer.parseInt(args[2]));
 		}
 		if (args[1].equals("connect")) {
 			if (args[3].equals("")) {
 				WriteLine("Usage | remote start <port> | remote connect <host> <port> | remote status |");
 				return;
 			}
-			tcphandler.tcpclient.start(args[2], Integer.parseInt(args[3]));
+			tcphandler.startClient(args[2], Integer.parseInt(args[3]));
 		}
 	}
 }

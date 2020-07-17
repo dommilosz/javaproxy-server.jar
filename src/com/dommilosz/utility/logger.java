@@ -3,6 +3,7 @@ package com.dommilosz.utility;
 
 import com.dommilosz.main.tcphandler;
 import com.dommilosz.main.tcphandler.pktype;
+import com.dommilosz.main.tcpserver;
 
 import java.time.LocalTime;
 
@@ -38,7 +39,7 @@ public class logger {
 
 		public static void log(String txt, int level, boolean br) {
 			try {
-				tcphandler.tcpserver.writeClient(txt, pktype.raw);
+				tcpserver.writeAllClients(txt, pktype.raw);
 			} catch (Exception ex) {
 			}
 			switch (level) {
