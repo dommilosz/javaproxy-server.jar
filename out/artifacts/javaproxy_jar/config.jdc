@@ -1,5 +1,5 @@
 console.mode=terminal
-remote.autorun.enabled=true
+remote.autorun.enabled=false
 remote.autorun.port=25575
 remote.autorun.password=root
 minecraft.server.enabled=true

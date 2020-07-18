@@ -27,6 +27,9 @@ public class configmanager {
 			while (s.hasNextLine()){
 				String line = s.nextLine();
 				String[] linea = line.split("=");
+				if(linea.length<2){
+					linea = arrayutil.add(linea,"");
+				}
 				setProperty(linea[0],linea[1]);
 			}
 			s.close();
@@ -60,11 +63,15 @@ public class configmanager {
 	}
 	public static String getValue(String property){
 		int i = hasProperty(property);
-		String value = "";
+		String value = null;
 		if(i>=0){
-			value = config[i].split("=")[1];
+			String[] propa = config[i].split("=");
+			if(propa.length<2){
+				propa = arrayutil.add(propa,"");
+			}
+			value = propa[1];
 		}
-		if(value.equals("")){
+		if(value==null){
 			WriteLine("Value of %s was empty",property);
 		}
 		return value;

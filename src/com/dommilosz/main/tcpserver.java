@@ -28,14 +28,14 @@ public class tcpserver {
 			password = pass;
 			serverStop();
 			serverSocket = new ServerSocket(port);
-			WriteLine("Server is listening on port " + port);
+			WriteLine("[SERVER] >> Remote server is listening on port " + port);
 			if (password.equals("")) {
 				log_level = 21;
-				WriteLine("Server is not protected by password!");
+				WriteLine("[SERVER] >> Server is not protected by password!");
 				log_level = 21;
-				WriteLine("Use: remote start %s <password>", port);
+				WriteLine("[SERVER] >> Use: remote start %s <password>", port);
 			}
-			WriteLine("Server started!");
+			WriteLine("[SERVER] >> Server started!");
 			socketport = port;
 			while (true) {
 				Socket socket = serverSocket.accept();
