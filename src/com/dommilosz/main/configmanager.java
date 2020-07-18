@@ -15,6 +15,7 @@ public class configmanager {
 			"console.mode=terminal",
 			"remote.autorun.enabled=false",
 			"remote.autorun.port=25575",
+			"remote.autorun.password=root",
 			"minecraft.server.enabled=true",
 			"minecraft.server.mode=simple",
 			"minecraft.server.port=25565"

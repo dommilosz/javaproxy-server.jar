@@ -21,9 +21,9 @@ public class tcphandler {
 		tcpStop();
 		tcpclient.start(host,port);
 	}
-	public static void startServer(int port){
+	public static void startServer(int port,String pass){
 		tcpStop();
-		tcpserver.start(port);
+		tcpserver.start(port,pass);
 	}
 	public static String tcpType(){
 		boolean server = false;
@@ -50,7 +50,10 @@ public class tcphandler {
 		public static String any = "95PTZSCJHD";
 		public static String cmd = "95PTZSCJHD#CMD#";
 		public static String raw = "95PTZSCJHD#RAW#";
+		public static String rawerr = "95PTZSCJHD#RAWERR#";
 		public static String ka = "95PTZSCJHD#KEEPALIVE#";
+		public static String authinfo = "95PTZSCJHD#AUTH#";
+		public static String authpass = "95PTZSCJHD#AUTHPASS#";
 	}
 }
 

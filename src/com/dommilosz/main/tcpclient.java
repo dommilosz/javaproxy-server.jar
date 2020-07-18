@@ -15,9 +15,11 @@ import static com.dommilosz.utility.logger.log.*;
 public class tcpclient {
 	public static Socket socket;
 	public static int socketport;
+	public static boolean passmode = false;
 
 	public static void startSync(String hostname, int port) {
 		try {
+			passmode = false;
 			clientStop();
 			socketport = port;
 			socket = new Socket(hostname, port);
@@ -52,6 +54,12 @@ public class tcpclient {
 	public static void clientStop() {
 		try {
 			socket.close();
+			log_Prefix = "[Remote]";
+			log_time = "";
+			log_level = 21;
+			WriteLine("Disconnected");
+			log_Prefix = "#";
+			log_time = "#";
 		} catch (Exception e) {
 
 		}
@@ -94,6 +102,22 @@ public class tcpclient {
 					log_Prefix = "#";
 					log_time = "#";
 					Thread.sleep(50);
+				}
+				if (packettype.equals("RAWERR")) {
+					log_Prefix = "[Remote]";
+					log_time = "";
+					log_level = 21;
+					WriteLine(cmd);
+					log_Prefix = "#";
+					log_time = "#";
+					Thread.sleep(50);
+				}
+				if (packettype.equals("AUTH")) {
+					if(cmd.equals("pass=true")){
+						WriteLine("Server needs password to connect!");
+						WriteLine("Provide password:");
+						passmode = true;
+					}
 				}
 
 				Thread.sleep(50);

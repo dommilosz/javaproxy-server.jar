@@ -53,7 +53,8 @@ public class javarun {
 		}
 		if(configmanager.getValue("remote.autorun.enabled").equals("true")){
 			int remport = Integer.parseInt(configmanager.getValue("remote.autorun.port"));
-			tcpserver.start(remport);
+			String pass = configmanager.getValue("remote.autorun.password");
+			tcphandler.startServer(remport,pass);
 		}
 
 		WriteLine("==================================");

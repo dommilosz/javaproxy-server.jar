@@ -15,7 +15,7 @@ public class remotecommand {
 		commandhandler.Executed = true;
 
 		if (args[1].equals("")) {
-			WriteLine("Usage | remote start <port> | remote connect <host> <port> | remote status |");
+			WriteLine("Usage | remote start <port> <(optional)password> | remote connect <host> <port> | remote status |");
 			return;
 		}
 		if (args[1].equals("status")) {
@@ -35,15 +35,15 @@ public class remotecommand {
 			return;
 		}
 		if (args[2].equals("")) {
-			WriteLine("Usage | remote start <port> | remote connect <host> <port> | remote status |");
+			WriteLine("Usage | remote start <port> <(optional)password> | remote connect <host> <port> | remote status |");
 			return;
 		}
 		if (args[1].equals("start")) {
-			tcphandler.startServer(Integer.parseInt(args[2]));
+			tcphandler.startServer(Integer.parseInt(args[2]),args[3]);
 		}
 		if (args[1].equals("connect")) {
 			if (args[3].equals("")) {
-				WriteLine("Usage | remote start <port> | remote connect <host> <port> | remote status |");
+				WriteLine("Usage | remote start <port> <(optional)password> | remote connect <host> <port> | remote status |");
 				return;
 			}
 			tcphandler.startClient(args[2], Integer.parseInt(args[3]));
