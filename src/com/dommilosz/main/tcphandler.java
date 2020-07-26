@@ -1,5 +1,7 @@
 package com.dommilosz.main;
 
+import com.dommilosz.utility.arrayutil;
+
 public class tcphandler {
 	public static int socketPort(){
 		String type = tcpType();
@@ -48,12 +50,28 @@ public class tcphandler {
 
 	public static class pktype {
 		public static String any = "95PTZSCJHD";
-		public static String cmd = "95PTZSCJHD#CMD#";
-		public static String raw = "95PTZSCJHD#RAW#";
-		public static String rawerr = "95PTZSCJHD#RAWERR#";
-		public static String ka = "95PTZSCJHD#KEEPALIVE#";
-		public static String authinfo = "95PTZSCJHD#AUTH#";
-		public static String authpass = "95PTZSCJHD#AUTHPASS#";
+		public static String cmd = "95PTZSCJHD#CMD";
+		public static String raw = "95PTZSCJHD#RAW";
+		public static String rawerr = "95PTZSCJHD#RAWERR";
+		public static String ka = "95PTZSCJHD#KEEPALIVE";
+		public static String authinfo = "95PTZSCJHD#AUTH";
+		public static String authpass = "95PTZSCJHD#AUTHPASS";
+	}
+	public static class packet{
+		String type;
+		String content;
+		public packet(String pk){
+			String[] pka = pk.split(" ");
+			type = pka[0];
+			content = String.join(" ",arrayutil.rem(pka,0));
+		}
+		public static String createPacket(String content,String pktype){
+			return pktype + " " + content;
+		}
+		public boolean checkType(String pktype){
+			if(type.equals(pktype))return true;
+			return false;
+		}
 	}
 }
 

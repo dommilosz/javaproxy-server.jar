@@ -20,7 +20,6 @@ public class redirecttoserver {
 				try {
 					if(tcpclient.passmode){
 						writeServer(String.join(" ", args), tcphandler.pktype.authpass);
-						tcpclient.passmode = false;
 					}else {
 						writeServer(String.join(" ", args), pktype.cmd);
 					}

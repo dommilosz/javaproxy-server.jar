@@ -13,8 +13,8 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.function.Consumer;
 
-import static com.dommilosz.utility.logger.log.WriteLine;
-import static com.dommilosz.utility.logger.log.log_level;
+import static com.dommilosz.utility.logger.log.*;
+import static com.dommilosz.main.tcphandler.*;
 
 public class tcpserver {
 
@@ -105,24 +105,26 @@ public class tcpserver {
 	}
 
 	public static void writeClient(socketConnection sc, String str, String packettype) {
+		String message = packet.createPacket(str,packettype);
 		Socket socket = sc.socket;
 		try {
 			OutputStream output = socket.getOutputStream();
 			PrintWriter writer = new PrintWriter(output, true);
-			writer.println(packettype + str);
+			writer.println(message);
 		} catch (Exception ex) {
 			killSocket(sc);
 		}
 	}
 
 	public static void writeAllClients(String str, String packettype) {
+		String message = packet.createPacket(str,packettype);
 		for (socketConnection sc : socketConnection.sockets) {
 			if (sc.auth) {
 				Socket socket = sc.socket;
 				try {
 					OutputStream output = socket.getOutputStream();
 					PrintWriter writer = new PrintWriter(output, true);
-					writer.println(packettype + str);
+					writer.println(message);
 				} catch (Exception ex) {
 					killSocket(sc);
 				}
@@ -137,21 +139,15 @@ public class tcpserver {
 			InputStream inputraw = socket.getInputStream();
 			while (!socket.isClosed()) {
 
-				String cmd = ioreader.readLine(inputraw);
-				String packettype = "RAW";
-				if (cmd.contains(tcphandler.pktype.any)) {
-					String[] args = cmd.split("#");
-					if (args[0].equals(tcphandler.pktype.any)) {
-						packettype = args[1];
-						cmd = cmd.replace(args[0] + "#" + args[1] + "#", "");
-					}
-				}
-				cmd = cmd.trim();
+				String pkcontent = ioreader.readLine(inputraw);
+				packet p = new packet(pkcontent);
 				if (!sc.auth) {
-					if (packettype.equals("AUTHPASS")) {
-						if (cmd.equals(password)) {
+					if (p.checkType(pktype.authpass)) {
+						writeClient(sc,"pass=true", tcphandler.pktype.authinfo);
+						if (p.content.equals(password)) {
 							sc.auth = true;
 							writeClient(sc, "Password is correct", tcphandler.pktype.raw);
+							writeClient(sc, "auth=true", tcphandler.pktype.authinfo);
 							WriteLine("[SERVER] >> New client connected");
 						} else {
 							writeClient(sc, "Password is incorrect", tcphandler.pktype.rawerr);
@@ -160,11 +156,11 @@ public class tcpserver {
 					}
 				}
 				if (sc.auth) {
-					if (packettype.equals("CMD")) {
-						commandhandler.Exec(cmd);
+					if (p.checkType(pktype.cmd)) {
+						commandhandler.Exec(p.content);
 					}
-					if (packettype.equals("RAW")) {
-						WriteLine(cmd);
+					if (p.checkType(pktype.raw)) {
+						WriteLine(p.type);
 					}
 				}
 

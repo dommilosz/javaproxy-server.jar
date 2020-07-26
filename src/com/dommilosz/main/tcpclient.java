@@ -11,6 +11,7 @@ import java.net.UnknownHostException;
 import java.util.Scanner;
 
 import static com.dommilosz.utility.logger.log.*;
+import static com.dommilosz.main.tcphandler.*;
 
 public class tcpclient {
 	public static Socket socket;
@@ -75,7 +76,8 @@ public class tcpclient {
 		try{
 		OutputStream output = socket.getOutputStream();
 		PrintWriter writer = new PrintWriter(output, true);
-		writer.println(packettype + cmd);
+		String message = packet.createPacket(cmd,packettype);
+		writer.println(message);
 		}catch (Exception ex) {clientStop();}
 	}
 
@@ -85,38 +87,41 @@ public class tcpclient {
 			Scanner sc = new Scanner(inputraw);
 			while (!socket.isClosed()) {
 
-				String cmd = ioreader.readLine(inputraw);
-				String packettype = "RAW";
-				if (cmd.contains(tcphandler.pktype.any)) {
-					String[] args = cmd.split("#");
+				String pkcontent = ioreader.readLine(inputraw);
+				packet p = new packet(pkcontent);
+				if (p.content.contains(tcphandler.pktype.any)) {
+					String[] args = p.content.split("#");
 					if (args[0].equals(tcphandler.pktype.any)) {
-						packettype = args[1];
-						cmd = cmd.replace(args[0] + "#" + args[1] + "#", "");
+						p.type = args[1];
+						p.content = p.content.replace(args[0] + "#" + args[1] + "#", "");
 					}
 				}
 
-				if (packettype.equals("RAW")) {
+				if (p.checkType(pktype.raw)) {
 					log_Prefix = "[Remote]";
 					log_time = "";
-					WriteLine(cmd);
+					WriteLine(p.content);
 					log_Prefix = "#";
 					log_time = "#";
 					Thread.sleep(50);
 				}
-				if (packettype.equals("RAWERR")) {
+				if (p.checkType(pktype.rawerr)) {
 					log_Prefix = "[Remote]";
 					log_time = "";
 					log_level = 21;
-					WriteLine(cmd);
+					WriteLine(p.content);
 					log_Prefix = "#";
 					log_time = "#";
 					Thread.sleep(50);
 				}
-				if (packettype.equals("AUTH")) {
-					if(cmd.equals("pass=true")){
+				if (p.checkType(pktype.authinfo)) {
+					if(p.content.equals("pass=true")){
 						WriteLine("Server needs password to connect!");
 						WriteLine("Provide password:");
 						passmode = true;
+					}
+					if(p.content.equals("auth=true")){
+						tcpclient.passmode = false;
 					}
 				}
 
