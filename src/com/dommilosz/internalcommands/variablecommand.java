@@ -14,22 +14,26 @@ public class variablecommand {
 	public static String name = "var";
 	public static String[] vars = new String[]{"appname" + eqls + logger.log.appname};
 
+	public static void writeUsage() {
+		WriteLine("Usage | var set <varname> <value> | var del <varname> | var get <varname> | var all");
+	}
+
 	public static void execute(String... args) {
 		if (!args[0].equals(name)) return;
 		commandhandler.Executed = true;
 
 		if (args[1].equals("")) {
-			WriteLine("Usage | var set <varname> <value> | var del <varname> | var get <varname> | var all");
+			writeUsage();
 			return;
 		}
 		switch (args[1]) {
 			case "set": {
 				if (args[3].equals("")) {
-					WriteLine("Usage | var <varname> | var set <varname> <value> | var del <varname>");
+					writeUsage();
 					return;
 				}
 				if (args[2].equals("")) {
-					WriteLine("Usage | var <varname> | var set <varname> <value> | var del <varname>");
+					writeUsage();
 					return;
 				}
 				SetVar(args[2], args[3]);
@@ -67,7 +71,7 @@ public class variablecommand {
 				break;
 			}
 			default:
-				WriteLine("Usage | var <varname> | var set <varname> <value> | var del <varname>");
+				writeUsage();
 		}
 	}
 
