@@ -52,6 +52,7 @@ public class tcpserver {
 					keeper.start();
 					reader.start();
 					WriteLine("[SERVER] >> New client connecting");
+					writeClient(sc, "$", pktype.userinfo);
 					if (!password.equals("")) {
 						writeClient(sc, "pass=true", tcphandler.pktype.authinfo);
 					} else {
@@ -105,7 +106,7 @@ public class tcpserver {
 	}
 
 	public static void writeClient(socketConnection sc, String str, String packettype) {
-		String message = packet.createPacket(str,packettype);
+		String message = packet.createPacket(str, packettype);
 		Socket socket = sc.socket;
 		try {
 			OutputStream output = socket.getOutputStream();
@@ -117,7 +118,7 @@ public class tcpserver {
 	}
 
 	public static void writeAllClients(String str, String packettype) {
-		String message = packet.createPacket(str,packettype);
+		String message = packet.createPacket(str, packettype);
 		for (socketConnection sc : socketConnection.sockets) {
 			if (sc.auth) {
 				Socket socket = sc.socket;
@@ -141,32 +142,48 @@ public class tcpserver {
 
 				String pkcontent = ioreader.readLine(inputraw);
 				packet p = new packet(pkcontent);
-				if (!sc.auth) {
-					if (p.checkType(pktype.authpass)) {
-						writeClient(sc,"pass=true", tcphandler.pktype.authinfo);
-						if (p.content.equals(password)) {
-							sc.auth = true;
-							writeClient(sc, "Password is correct", tcphandler.pktype.raw);
-							writeClient(sc, "auth=true", tcphandler.pktype.authinfo);
-							WriteLine("[SERVER] >> New client connected");
-						} else {
-							writeClient(sc, "Password is incorrect", tcphandler.pktype.rawerr);
+				if (p.checkType(pktype.userinfo)) {
+					if (p.content.charAt(0) == '0') {
+						sc.username = p.content.substring(1);
+					}
+					if (p.content.charAt(0) == '1') {
+						sc.pcname = p.content.substring(1);
+					}
+				}
+				if (!sc.username.equals("") && !sc.pcname.equals("")) {
+					if (!sc.auth) {
+						if (p.checkType(pktype.authpass)) {
 							writeClient(sc, "pass=true", tcphandler.pktype.authinfo);
+							if (p.content.equals(password)) {
+								sc.auth = true;
+								sc.invalidPassAttempts = 0;
+								writeClient(sc, "Password is correct", tcphandler.pktype.raw);
+								writeClient(sc, "auth=true", tcphandler.pktype.authinfo);
+								WriteLine("[SERVER] >> New client connected");
+							} else {
+								sc.invalidPassAttempts += 1;
+								writeClient(sc, "Password is incorrect ("+(4-sc.invalidPassAttempts)+" left)", tcphandler.pktype.rawerr);
+								if (sc.invalidPassAttempts > 3) {
+									kickSocket(sc, "Too many invalid password attempts");
+								}else {
+									writeClient(sc, "pass=true", tcphandler.pktype.authinfo);
+								}
+							}
 						}
 					}
-				}
-				if (sc.auth) {
-					if (p.checkType(pktype.cmd)) {
-						commandhandler.Exec(p.content);
+					if (sc.auth) {
+						if (p.checkType(pktype.cmd)) {
+							commandhandler.Exec(p.content);
+						}
+						if (p.checkType(pktype.raw)) {
+							WriteLine(p.type);
+						}
 					}
-					if (p.checkType(pktype.raw)) {
-						WriteLine(p.type);
-					}
+
+
+					Thread.sleep(50);
+
 				}
-
-
-				Thread.sleep(50);
-
 			}
 		} catch (Exception ex) {
 			killSocket(sc);
@@ -183,14 +200,15 @@ public class tcpserver {
 		}
 	}
 
-	public static class socketConnection {
-		public static List<socketConnection> sockets = new ArrayList<socketConnection>();
-		public Socket socket;
-		public boolean auth = false;
-
-		public socketConnection(Socket s) {
-			socket = s;
-			sockets.add(this);
+	public static void kickSocket(socketConnection sc, String reason) {
+		writeClient(sc, "Kicked by server:", pktype.rawerr);
+		writeClient(sc, reason, pktype.rawerr);
+		try {
+			Thread.sleep(500);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
 		}
+		killSocket(sc);
 	}
+
 }

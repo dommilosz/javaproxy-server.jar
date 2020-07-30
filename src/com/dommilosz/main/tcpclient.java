@@ -1,5 +1,6 @@
 package com.dommilosz.main;
 
+import com.dommilosz.utility.env;
 import com.dommilosz.utility.ioreader;
 
 import java.io.IOException;
@@ -89,13 +90,6 @@ public class tcpclient {
 
 				String pkcontent = ioreader.readLine(inputraw);
 				packet p = new packet(pkcontent);
-				if (p.content.contains(tcphandler.pktype.any)) {
-					String[] args = p.content.split("#");
-					if (args[0].equals(tcphandler.pktype.any)) {
-						p.type = args[1];
-						p.content = p.content.replace(args[0] + "#" + args[1] + "#", "");
-					}
-				}
 
 				if (p.checkType(pktype.raw)) {
 					log_Prefix = "[Remote]";
@@ -122,6 +116,12 @@ public class tcpclient {
 					}
 					if(p.content.equals("auth=true")){
 						tcpclient.passmode = false;
+					}
+				}
+				if (p.checkType(pktype.userinfo)) {
+					if(p.content.equals("$")){
+						writeServer("0"+ env.user(),pktype.userinfo);
+						writeServer("1"+ env.pcname(),pktype.userinfo);
 					}
 				}
 
