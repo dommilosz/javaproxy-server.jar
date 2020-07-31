@@ -7,7 +7,7 @@ import com.dommilosz.main.tcpserver;
 
 import java.time.LocalTime;
 
-public class logger {
+public class iowriter {
 	public static class log {
 		public static String log_Prefix = "#";
 		public static int log_level = 1;

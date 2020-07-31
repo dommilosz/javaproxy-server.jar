@@ -11,7 +11,7 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.Scanner;
 
-import static com.dommilosz.utility.logger.log.*;
+import static com.dommilosz.utility.iowriter.log.*;
 import static com.dommilosz.main.tcphandler.*;
 
 public class tcpclient {
@@ -74,12 +74,14 @@ public class tcpclient {
 	}
 
 	public static void writeServer(String cmd, String packettype) {
-		try{
-		OutputStream output = socket.getOutputStream();
-		PrintWriter writer = new PrintWriter(output, true);
-		String message = packet.createPacket(cmd,packettype);
-		writer.println(message);
-		}catch (Exception ex) {clientStop();}
+		try {
+			OutputStream output = socket.getOutputStream();
+			PrintWriter writer = new PrintWriter(output, true);
+			String message = packet.createPacket(cmd, packettype);
+			writer.println(message);
+		} catch (Exception ex) {
+			clientStop();
+		}
 	}
 
 	public static void readServer() {
@@ -109,24 +111,26 @@ public class tcpclient {
 					Thread.sleep(50);
 				}
 				if (p.checkType(pktype.authinfo)) {
-					if(p.content.equals("pass=true")){
+					if (p.content.equals("pass=true")) {
 						WriteLine("Server needs password to connect!");
 						WriteLine("Provide password:");
 						passmode = true;
 					}
-					if(p.content.equals("auth=true")){
+					if (p.content.equals("auth=true")) {
 						tcpclient.passmode = false;
 					}
 				}
 				if (p.checkType(pktype.userinfo)) {
-					if(p.content.equals("$")){
-						writeServer("0"+ env.user(),pktype.userinfo);
-						writeServer("1"+ env.pcname(),pktype.userinfo);
+					if (p.content.equals("$")) {
+						writeServer("0" + env.user(), pktype.userinfo);
+						writeServer("1" + env.pcname(), pktype.userinfo);
 					}
 				}
 
 				Thread.sleep(50);
 			}
-		}catch (Exception ex) {clientStop();}
+		} catch (Exception ex) {
+			clientStop();
+		}
 	}
 }

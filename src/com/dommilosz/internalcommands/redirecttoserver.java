@@ -1,15 +1,10 @@
 package com.dommilosz.internalcommands;
 
 import com.dommilosz.main.commandhandler;
-import com.dommilosz.main.javarun;
 import com.dommilosz.main.tcpclient;
 import com.dommilosz.main.tcphandler;
 
-import java.io.IOException;
-
 import static com.dommilosz.main.tcpclient.writeServer;
-import static com.dommilosz.utility.logger.log.WriteLine;
-import static com.dommilosz.utility.logger.log.log_level;
 import static com.dommilosz.main.tcphandler.pktype;
 
 public class redirecttoserver {
@@ -18,12 +13,13 @@ public class redirecttoserver {
 			if (tcphandler.tcpType().equals("client")) {
 				commandhandler.Executed = true;
 				try {
-					if(tcpclient.passmode){
+					if (tcpclient.passmode) {
 						writeServer(String.join(" ", args), tcphandler.pktype.authpass);
-					}else {
+					} else {
 						writeServer(String.join(" ", args), pktype.cmd);
 					}
-				} catch (Exception ex) {}
+				} catch (Exception ex) {
+				}
 			}
 		} catch (Exception ex) {
 		}

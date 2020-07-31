@@ -8,12 +8,8 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-import java.util.function.Consumer;
 
-import static com.dommilosz.utility.logger.log.*;
+import static com.dommilosz.utility.iowriter.log.*;
 import static com.dommilosz.main.tcphandler.*;
 
 public class tcpserver {
@@ -159,13 +155,13 @@ public class tcpserver {
 								sc.invalidPassAttempts = 0;
 								writeClient(sc, "Password is correct", tcphandler.pktype.raw);
 								writeClient(sc, "auth=true", tcphandler.pktype.authinfo);
-								WriteLine("[SERVER] >> New client connected");
+								WriteLine("[SERVER] >> New client connected [%s (%s)]", sc.hostname, sc.id);
 							} else {
 								sc.invalidPassAttempts += 1;
-								writeClient(sc, "Password is incorrect ("+(4-sc.invalidPassAttempts)+" left)", tcphandler.pktype.rawerr);
+								writeClient(sc, "Password is incorrect (" + (4 - sc.invalidPassAttempts) + " left)", tcphandler.pktype.rawerr);
 								if (sc.invalidPassAttempts > 3) {
 									kickSocket(sc, "Too many invalid password attempts");
-								}else {
+								} else {
 									writeClient(sc, "pass=true", tcphandler.pktype.authinfo);
 								}
 							}

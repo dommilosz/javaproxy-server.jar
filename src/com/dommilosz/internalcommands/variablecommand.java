@@ -2,17 +2,17 @@ package com.dommilosz.internalcommands;
 
 import com.dommilosz.main.commandhandler;
 import com.dommilosz.utility.arrayutil;
-import com.dommilosz.utility.logger;
+import com.dommilosz.utility.iowriter;
 
 
-import static com.dommilosz.utility.logger.log.WriteLine;
-import static com.dommilosz.utility.logger.log.log_level;
+import static com.dommilosz.utility.iowriter.log.WriteLine;
+import static com.dommilosz.utility.iowriter.log.log_level;
 
 public class variablecommand {
 	public static String eqls = "=#??QAATUYGbgt#=";
 	public static String errs = "=#??o0AmU3GFPo#=";
 	public static String name = "var";
-	public static String[] vars = new String[]{"appname" + eqls + logger.log.appname};
+	public static String[] vars = new String[]{"appname" + eqls + iowriter.log.appname};
 
 	public static void writeUsage() {
 		WriteLine("Usage | var set <varname> <value> | var del <varname> | var get <varname> | var all");

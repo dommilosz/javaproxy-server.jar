@@ -2,7 +2,7 @@ package com.dommilosz.internalcommands;
 
 import com.dommilosz.main.*;
 
-import static com.dommilosz.utility.logger.log.WriteLine;
+import static com.dommilosz.utility.iowriter.log.WriteLine;
 
 public class servercommand {
 	public static String name = "server";

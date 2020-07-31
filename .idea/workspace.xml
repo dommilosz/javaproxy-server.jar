@@ -25,12 +25,25 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="01cec2bb-fd3d-43fc-926d-e4c351b45b08" name="Default Changelist" comment="changes in packet sending">
+    <list default="true" id="01cec2bb-fd3d-43fc-926d-e4c351b45b08" name="Default Changelist" comment="added 'remote kick' and added information about username &amp; pcname in remote socket list">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/dommilosz/internalcommands/argscommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dommilosz/internalcommands/argscommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/dommilosz/internalcommands/configcommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dommilosz/internalcommands/configcommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/dommilosz/internalcommands/redirecttoserver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dommilosz/internalcommands/redirecttoserver.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/dommilosz/internalcommands/remotecommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dommilosz/internalcommands/remotecommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/dommilosz/internalcommands/servercommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dommilosz/internalcommands/servercommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/dommilosz/internalcommands/stopcommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dommilosz/internalcommands/stopcommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/dommilosz/internalcommands/variablecommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dommilosz/internalcommands/variablecommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/dommilosz/main/commandhandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dommilosz/main/commandhandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/dommilosz/main/configmanager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dommilosz/main/configmanager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/dommilosz/main/javarun.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dommilosz/main/javarun.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/dommilosz/main/minecraftserver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dommilosz/main/minecraftserver.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/dommilosz/main/runner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dommilosz/main/runner.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/dommilosz/main/tcpclient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dommilosz/main/tcpclient.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/dommilosz/main/tcphandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dommilosz/main/tcphandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/dommilosz/main/tcpserver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dommilosz/main/tcpserver.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/dommilosz/utility/ioreader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dommilosz/utility/ioreader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/dommilosz/utility/logger.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dommilosz/utility/iowriter.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,7 +90,7 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration name="RUN" type="Application" factoryName="Application">
+    <configuration name="RUN" type="Application" factoryName="Application" singleton="false">
       <option name="MAIN_CLASS_NAME" value="com.dommilosz.main.javarun" />
       <module name="javaproxy" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/out/artifacts/javaproxy_jar" />
@@ -246,10 +259,10 @@
     <option name="LAST_COMMIT_MESSAGE" value="getUsage() in internal commands" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="137" y="28" width="1092" height="681" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1595012822034">
+    <state x="137" y="28" width="1092" height="681" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1596220611265">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="137" y="28" width="1092" height="681" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1366.728@0.0.1366.728" timestamp="1595012822034" />
+    <state x="137" y="28" width="1092" height="681" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1366.728@0.0.1366.728" timestamp="1596220611265" />
     <state x="412" y="154" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1594992351360">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -270,38 +283,38 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state width="398" height="438" key="DebuggerActiveHint/0.0.1366.728@0.0.1366.728" timestamp="1595758699729" />
-    <state width="1323" height="223" key="GridCell.Tab.0.bottom" timestamp="1596131964104">
+    <state width="1323" height="223" key="GridCell.Tab.0.bottom" timestamp="1596220924701">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="223" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1596131964104" />
-    <state width="1323" height="223" key="GridCell.Tab.0.center" timestamp="1596131964104">
+    <state width="1323" height="223" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1596220924701" />
+    <state width="1323" height="223" key="GridCell.Tab.0.center" timestamp="1596220924701">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="223" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1596131964104" />
-    <state width="1323" height="223" key="GridCell.Tab.0.left" timestamp="1596131964104">
+    <state width="1323" height="223" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1596220924701" />
+    <state width="1323" height="223" key="GridCell.Tab.0.left" timestamp="1596220924701">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="223" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1596131964104" />
-    <state width="1323" height="223" key="GridCell.Tab.0.right" timestamp="1596131964104">
+    <state width="1323" height="223" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1596220924701" />
+    <state width="1323" height="223" key="GridCell.Tab.0.right" timestamp="1596220924701">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="223" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1596131964104" />
-    <state width="1323" height="223" key="GridCell.Tab.1.bottom" timestamp="1596131964104">
+    <state width="1323" height="223" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1596220924701" />
+    <state width="1323" height="223" key="GridCell.Tab.1.bottom" timestamp="1596220924702">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="223" key="GridCell.Tab.1.bottom/0.0.1366.728@0.0.1366.728" timestamp="1596131964104" />
-    <state width="1323" height="223" key="GridCell.Tab.1.center" timestamp="1596131964104">
+    <state width="1323" height="223" key="GridCell.Tab.1.bottom/0.0.1366.728@0.0.1366.728" timestamp="1596220924702" />
+    <state width="1323" height="223" key="GridCell.Tab.1.center" timestamp="1596220924701">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="223" key="GridCell.Tab.1.center/0.0.1366.728@0.0.1366.728" timestamp="1596131964104" />
-    <state width="1323" height="223" key="GridCell.Tab.1.left" timestamp="1596131964104">
+    <state width="1323" height="223" key="GridCell.Tab.1.center/0.0.1366.728@0.0.1366.728" timestamp="1596220924701" />
+    <state width="1323" height="223" key="GridCell.Tab.1.left" timestamp="1596220924701">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="223" key="GridCell.Tab.1.left/0.0.1366.728@0.0.1366.728" timestamp="1596131964104" />
-    <state width="1323" height="223" key="GridCell.Tab.1.right" timestamp="1596131964104">
+    <state width="1323" height="223" key="GridCell.Tab.1.left/0.0.1366.728@0.0.1366.728" timestamp="1596220924701" />
+    <state width="1323" height="223" key="GridCell.Tab.1.right" timestamp="1596220924702">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="223" key="GridCell.Tab.1.right/0.0.1366.728@0.0.1366.728" timestamp="1596131964104" />
+    <state width="1323" height="223" key="GridCell.Tab.1.right/0.0.1366.728@0.0.1366.728" timestamp="1596220924702" />
     <state x="415" y="84" key="RollbackChangesDialog" timestamp="1595092104039">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -334,16 +347,5 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1596131215648" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/com/dommilosz/internalcommands/remotecommand.java</url>
-          <line>65</line>
-          <option name="timeStamp" value="9" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

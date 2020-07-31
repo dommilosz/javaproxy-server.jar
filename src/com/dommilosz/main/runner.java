@@ -3,11 +3,10 @@ package com.dommilosz.main;
 import com.dommilosz.utility.ioreader;
 
 import java.io.*;
-import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 
 import static com.dommilosz.utility.env.*;
-import static com.dommilosz.utility.logger.log.*;
+import static com.dommilosz.utility.iowriter.log.*;
 
 public class runner {
 	public static String mode = "terminal";

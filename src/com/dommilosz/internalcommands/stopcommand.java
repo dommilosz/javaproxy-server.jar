@@ -3,8 +3,8 @@ package com.dommilosz.internalcommands;
 import com.dommilosz.main.javarun;
 import com.dommilosz.main.commandhandler;
 
-import static com.dommilosz.utility.logger.log.WriteLine;
-import static com.dommilosz.utility.logger.log.log_level;
+import static com.dommilosz.utility.iowriter.log.WriteLine;
+import static com.dommilosz.utility.iowriter.log.log_level;
 
 public class stopcommand {
 	public static String name = "stop";

@@ -7,8 +7,7 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-import static com.dommilosz.utility.logger.log.WriteLine;
-import static com.dommilosz.utility.logger.log.log_level;
+import static com.dommilosz.utility.iowriter.log.WriteLine;
 
 public class minecraftserver implements Runnable {
 

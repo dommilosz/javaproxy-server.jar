@@ -1,7 +1,6 @@
 package com.dommilosz.main;
 
 import java.io.*;
-import java.util.Scanner;
 
 import com.dommilosz.internalcommands.argscommand;
 
@@ -9,7 +8,7 @@ import static com.dommilosz.main.commandhandler.Exec;
 import static com.dommilosz.main.runner.*;
 import static com.dommilosz.main.runner.getInput;
 import static com.dommilosz.utility.env.*;
-import static com.dommilosz.utility.logger.log.*;
+import static com.dommilosz.utility.iowriter.log.*;
 
 public class javarun {
 	public static boolean wantExit = false;
@@ -44,17 +43,17 @@ public class javarun {
 			WriteLine("[" + startscript + "] not found!");
 		}
 		int port = Integer.parseInt(configmanager.getValue("minecraft.server.port"));
-		if(configmanager.getValue("minecraft.server.enabled").equals("true")){
-			if(configmanager.getValue("minecraft.server.mode").equals("simple")){
+		if (configmanager.getValue("minecraft.server.enabled").equals("true")) {
+			if (configmanager.getValue("minecraft.server.mode").equals("simple")) {
 				minecraftserver.PORT = port;
 				WriteLine("Running listener on port %s", port);
 				minecraftserver.startThread();
 			}
 		}
-		if(configmanager.getValue("remote.autorun.enabled").equals("true")){
+		if (configmanager.getValue("remote.autorun.enabled").equals("true")) {
 			int remport = Integer.parseInt(configmanager.getValue("remote.autorun.port"));
 			String pass = configmanager.getValue("remote.autorun.password");
-			tcphandler.startServer(remport,pass);
+			tcphandler.startServer(remport, pass);
 		}
 
 		WriteLine("==================================");

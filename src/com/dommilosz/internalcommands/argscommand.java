@@ -1,10 +1,8 @@
 package com.dommilosz.internalcommands;
 
 import com.dommilosz.main.commandhandler;
-import com.dommilosz.main.javarun;
 
-import static com.dommilosz.utility.logger.log.WriteLine;
-import static com.dommilosz.utility.logger.log.log_level;
+import static com.dommilosz.utility.iowriter.log.WriteLine;
 
 public class argscommand {
 	public static String name = "args";

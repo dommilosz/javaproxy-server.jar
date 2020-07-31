@@ -4,7 +4,7 @@ import com.dommilosz.internalcommands.*;
 import com.dommilosz.utility.arrayutil;
 
 import static com.dommilosz.main.runner.runScript;
-import static com.dommilosz.utility.logger.log.WriteLine;
+import static com.dommilosz.utility.iowriter.log.WriteLine;
 
 public class commandhandler {
 	public static boolean Executed = false;

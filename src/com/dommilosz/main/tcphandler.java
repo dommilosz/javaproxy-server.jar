@@ -8,46 +8,51 @@ import java.util.List;
 import java.util.Random;
 
 public class tcphandler {
-	public static int socketPort(){
+	public static int socketPort() {
 		String type = tcpType();
-		if(type.equals("server")){
+		if (type.equals("server")) {
 			return tcpserver.socketport;
 		}
-		if(type.equals("client")){
+		if (type.equals("client")) {
 			return tcpclient.socketport;
 		}
 		return 0;
 	}
-	public static void tcpStop(){
-		try{
-		tcpclient.clientStop();
-		tcpserver.serverStop();
-		}catch (Exception ex) {}
+
+	public static void tcpStop() {
+		try {
+			tcpclient.clientStop();
+			tcpserver.serverStop();
+		} catch (Exception ex) {
+		}
 	}
-	public static void startClient(String host,int port){
+
+	public static void startClient(String host, int port) {
 		tcpStop();
-		tcpclient.start(host,port);
+		tcpclient.start(host, port);
 	}
-	public static void startServer(int port,String pass){
+
+	public static void startServer(int port, String pass) {
 		tcpStop();
-		tcpserver.start(port,pass);
+		tcpserver.start(port, pass);
 	}
-	public static String tcpType(){
+
+	public static String tcpType() {
 		boolean server = false;
 		boolean client = false;
-		if(tcpserver.serverSocket!=null&&!tcpserver.serverSocket.isClosed()){
+		if (tcpserver.serverSocket != null && !tcpserver.serverSocket.isClosed()) {
 			server = true;
 		}
-		if(tcpclient.socket!=null&&!tcpclient.socket.isClosed()){
+		if (tcpclient.socket != null && !tcpclient.socket.isClosed()) {
 			client = true;
 		}
-		if(server&&client){
+		if (server && client) {
 			return "both! It shouldn't be!";
 		}
-		if(server){
+		if (server) {
 			return "server";
 		}
-		if(client){
+		if (client) {
 			return "client";
 		}
 		return "none";
@@ -79,33 +84,36 @@ public class tcphandler {
 			sockets.add(this);
 			hostname = socket.getInetAddress().getHostName();
 			Random rnd = new Random();
-			while (id<10000||id>99999){
+			while (id < 10000 || id > 99999) {
 				id = rnd.nextInt(99999);
 			}
 
 		}
-		public static socketConnection getById(int id){
-			for (socketConnection s:sockets){
-				if(s.id==id)return s;
+
+		public static socketConnection getById(int id) {
+			for (socketConnection s : sockets) {
+				if (s.id == id) return s;
 			}
 			return null;
 		}
 	}
 
-	public static class packet{
+	public static class packet {
 		String type;
 		String content;
-		public packet(String pk){
+
+		public packet(String pk) {
 			String[] pka = pk.split(" ");
 			type = pka[0];
-			content = String.join(" ",arrayutil.rem(pka,0));
+			content = String.join(" ", arrayutil.rem(pka, 0));
 		}
-		public static String createPacket(String content,String pktype){
+
+		public static String createPacket(String content, String pktype) {
 			return pktype + " " + content;
 		}
-		public boolean checkType(String pktype){
-			if(type.equals(pktype))return true;
-			return false;
+
+		public boolean checkType(String pktype) {
+			return type.equals(pktype);
 		}
 	}
 }
